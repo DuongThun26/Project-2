@@ -7,8 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.javaweb.config.DBConnection;
 import com.javaweb.repository.BuildingTypeRepository;
-import com.javaweb.repository.DBConnection;
 import com.javaweb.repository.entity.BuildingTypeEntity;
 
 public class BuildingTypeRepositoryImpl implements BuildingTypeRepository{

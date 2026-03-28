@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.javaweb.config.ModelMapperConfig;
 import com.javaweb.model.BuildingDTO;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.DistrictRepository;
@@ -21,27 +22,20 @@ public class BuildingServiceImp implements BuildingService{
 	
 	@Autowired
 	private DistrictRepository districtRepository;
+	
+	@Autowired
+	private ModelMapperConfig modelMapperConfig;
+	
 
 	@Override
 	public List<BuildingDTO> getAllBuilding(Map<String, Object> params, List<String> typeCode) {
 		// TODO Auto-generated method stub
 		List<BuildingDTO> result = new ArrayList<>();
 		List<BuildingEntity> buildings = buildingRepository.getAllBuilding(params, typeCode);
-		for(BuildingEntity item : buildings) {
-			BuildingDTO buildingDTO = new BuildingDTO();
-			buildingDTO.setId(item.getId());
-			buildingDTO.setName(item.getName());
-			buildingDTO.setNumber_of_basement(item.getNumber_of_basement());
-			buildingDTO.setFloor_area(item.getFloor_area());
-			buildingDTO.setLevel(item.getLevel());
-			buildingDTO.setManager_name(item.getManager_name());
-			buildingDTO.setManager_phone(item.getManager_phone());
-			buildingDTO.setRent_price(item.getRent_price());
-			buildingDTO.setService_fee(item.getService_fee());
+		for(BuildingEntity item : buildings) {				
 			DistrictEntity districtEntity = districtRepository.getDistrictById(item.getDistrict_id());
+			BuildingDTO buildingDTO = modelMapperConfig.modelMapper().map(item, BuildingDTO.class);
 			buildingDTO.setAddress(item.getStreet() + ", " + item.getWard() + ", " + districtEntity.getName());
-			buildingDTO.setDirection(item.getDirection());
-			buildingDTO.setDistrict_id(item.getDistrict_id());
 			result.add(buildingDTO);
 		}
 		return result;
