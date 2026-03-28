@@ -1,21 +1,25 @@
 package com.javaweb.model;
 
 public class BuildingDTO {
-	private int id;
-	private String building_name;
-	private int floor_area, number_of_floors, number_of_basement_floors;
-	private String direction, rate;
+	private int id, district_id, number_of_basement, floor_area, rent_price;
+	private String name, address, direction, level, service_fee, rent_time, manager_name, manager_phone;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getBuilding_name() {
-		return building_name;
+	public int getDistrict_id() {
+		return district_id;
 	}
-	public void setBuilding_name(String building_name) {
-		this.building_name = building_name;
+	public void setDistrict_id(int district_id) {
+		this.district_id = district_id;
+	}
+	public int getNumber_of_basement() {
+		return number_of_basement;
+	}
+	public void setNumber_of_basement(int number_of_basement) {
+		this.number_of_basement = number_of_basement;
 	}
 	public int getFloor_area() {
 		return floor_area;
@@ -23,17 +27,23 @@ public class BuildingDTO {
 	public void setFloor_area(int floor_area) {
 		this.floor_area = floor_area;
 	}
-	public int getNumber_of_floors() {
-		return number_of_floors;
+	public int getRent_price() {
+		return rent_price;
 	}
-	public void setNumber_of_floors(int number_of_floors) {
-		this.number_of_floors = number_of_floors;
+	public void setRent_price(int rent_price) {
+		this.rent_price = rent_price;
 	}
-	public int getNumber_of_basement_floors() {
-		return number_of_basement_floors;
+	public String getName() {
+		return name;
 	}
-	public void setNumber_of_basement_floors(int number_of_basement_floors) {
-		this.number_of_basement_floors = number_of_basement_floors;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getDirection() {
 		return direction;
@@ -41,13 +51,36 @@ public class BuildingDTO {
 	public void setDirection(String direction) {
 		this.direction = direction;
 	}
-	public String getRate() {
-		return rate;
+	public String getLevel() {
+		return level;
 	}
-	public void setRate(String rate) {
-		this.rate = rate;
+	public void setLevel(String level) {
+		this.level = level;
 	}
-
+	public String getService_fee() {
+		return service_fee;
+	}
+	public void setService_fee(String service_fee) {
+		this.service_fee = service_fee;
+	}
+	public String getRent_time() {
+		return rent_time;
+	}
+	public void setRent_time(String rent_time) {
+		this.rent_time = rent_time;
+	}
+	public String getManager_name() {
+		return manager_name;
+	}
+	public void setManager_name(String manager_name) {
+		this.manager_name = manager_name;
+	}
+	public String getManager_phone() {
+		return manager_phone;
+	}
+	public void setManager_phone(String manager_phone) {
+		this.manager_phone = manager_phone;
+	}
 	
 }
 

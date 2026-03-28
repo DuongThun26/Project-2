@@ -6,5 +6,5 @@ import java.util.Map;
 import com.javaweb.model.BuildingDTO;
 
 public interface BuildingService {
-	List<BuildingDTO> getAllBuilding(Map<String, Object> params);
+	List<BuildingDTO> getAllBuilding(Map<String, Object> params, List<String> typeCode);
 }

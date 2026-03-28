@@ -6,5 +6,5 @@ import java.util.Map;
 import com.javaweb.repository.entity.BuildingEntity;
 
 public interface BuildingRepository {
-	List<BuildingEntity> getAllBuilding(Map<String, Object> params);
+	List<BuildingEntity> getAllBuilding(Map<String, Object> params, List<String> typeCode);
 }
