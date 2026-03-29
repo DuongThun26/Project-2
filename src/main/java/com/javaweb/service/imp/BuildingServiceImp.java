@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaweb.config.ModelMapperConfig;
+import com.javaweb.converter.BuildingDTOConverter;
 import com.javaweb.model.BuildingDTO;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.DistrictRepository;
@@ -21,10 +22,8 @@ public class BuildingServiceImp implements BuildingService{
 	private BuildingRepository buildingRepository;
 	
 	@Autowired
-	private DistrictRepository districtRepository;
+	private BuildingDTOConverter buildingDTOConverter;
 	
-	@Autowired
-	private ModelMapperConfig modelMapperConfig;
 	
 
 	@Override
@@ -33,9 +32,7 @@ public class BuildingServiceImp implements BuildingService{
 		List<BuildingDTO> result = new ArrayList<>();
 		List<BuildingEntity> buildings = buildingRepository.getAllBuilding(params, typeCode);
 		for(BuildingEntity item : buildings) {				
-			DistrictEntity districtEntity = districtRepository.getDistrictById(item.getDistrict_id());
-			BuildingDTO buildingDTO = modelMapperConfig.modelMapper().map(item, BuildingDTO.class);
-			buildingDTO.setAddress(item.getStreet() + ", " + item.getWard() + ", " + districtEntity.getName());
+			BuildingDTO buildingDTO = buildingDTOConverter.toBuildingDTO(item);
 			result.add(buildingDTO);
 		}
 		return result;

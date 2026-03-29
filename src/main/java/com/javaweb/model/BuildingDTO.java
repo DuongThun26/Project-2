@@ -1,19 +1,13 @@
 package com.javaweb.model;
 
 public class BuildingDTO {
-	private int id, district_id, number_of_basement, floor_area, rent_price;
-	private String name, address, direction, level, service_fee, rent_time, manager_name, manager_phone;
+	private int id, number_of_basement, floor_area, rent_price;
+	private String name, address, direction, level, service_fee, rent_time, manager_name, manager_phone, rent_area;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public int getDistrict_id() {
-		return district_id;
-	}
-	public void setDistrict_id(int district_id) {
-		this.district_id = district_id;
 	}
 	public int getNumber_of_basement() {
 		return number_of_basement;
@@ -65,6 +59,13 @@ public class BuildingDTO {
 	}
 	public String getRent_time() {
 		return rent_time;
+	}
+	
+	public String getRent_area() {
+		return rent_area;
+	}
+	public void setRent_area(String rent_area) {
+		this.rent_area = rent_area;
 	}
 	public void setRent_time(String rent_time) {
 		this.rent_time = rent_time;

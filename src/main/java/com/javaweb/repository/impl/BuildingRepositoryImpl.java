@@ -97,6 +97,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 			queryTableNormal(params, where);
 			queryTableSpecial(params, typeCode, where);
 			sql.append(where);
+			sql.append(" GROUP BY b.id ");
 			Statement stm = (Statement) conn.createStatement();
 			ResultSet rs = stm.executeQuery(sql.toString());
 			while(rs.next()) {
