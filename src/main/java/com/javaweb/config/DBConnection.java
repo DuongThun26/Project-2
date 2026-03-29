@@ -1,4 +1,4 @@
-package com.javaweb.repository;
+package com.javaweb.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

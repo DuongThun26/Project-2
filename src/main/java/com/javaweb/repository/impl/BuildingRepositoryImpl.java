@@ -10,8 +10,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.javaweb.config.DBConnection;
 import com.javaweb.repository.BuildingRepository;
-import com.javaweb.repository.DBConnection;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.utils.StringUtil;
 
@@ -36,15 +36,17 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 			where.append(" AND b.rent_price " + " <= " + rentpriceTo);
 		}
 		// Java 7
-		StringBuilder type = new StringBuilder();
-		typeCode.forEach(i -> {
-			if(type.length() > 0) {
-				type.append(",");
-			}
-			type.append("'").append(i).append("'");
-		});
 		if(typeCode != null && typeCode.size() != 0) {
-			where.append(" AND bt.code IN (" + type + ") ");
+			StringBuilder type = new StringBuilder();
+			typeCode.forEach(i -> {
+				if(type.length() > 0) {
+					type.append(",");
+				}
+				type.append("'").append(i).append("'");
+			});
+			if(typeCode != null && typeCode.size() != 0) {
+				where.append(" AND bt.code IN (" + type + ") ");
+			}
 		}
 		
 	}
@@ -95,7 +97,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 			queryTableNormal(params, where);
 			queryTableSpecial(params, typeCode, where);
 			sql.append(where);
-			System.out.print(sql);
+			sql.append(" GROUP BY b.id ");
 			Statement stm = (Statement) conn.createStatement();
 			ResultSet rs = stm.executeQuery(sql.toString());
 			while(rs.next()) {

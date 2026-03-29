@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.javaweb.repository.DBConnection;
+import com.javaweb.config.DBConnection;
 import com.javaweb.repository.DistrictRepository;
 import com.javaweb.repository.entity.DistrictEntity;
 
@@ -21,10 +21,10 @@ public class DistrictRepositoryImp implements DistrictRepository{
 		DistrictEntity districtEntity = new DistrictEntity();
 		try(Connection conn = DBConnection.getConnection()){
 			Statement stm = (Statement) conn.createStatement();
-			String sql = " SELECT d.name FROM district d WHERE d.id = id ";
+			String sql = " SELECT d.name FROM district d WHERE d.id = " + id + " ";
 			ResultSet rs = stm.executeQuery(sql);
 			while(rs.next()) {
-				districtEntity.setName(rs.getString(id));
+				districtEntity.setName(rs.getString("name"));
 			}
 		}catch(Exception e) {
 			System.out.print(e.getMessage());
