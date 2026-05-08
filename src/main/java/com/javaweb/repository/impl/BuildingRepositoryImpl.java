@@ -22,21 +22,21 @@ import com.javaweb.utils.StringUtil;
 public class BuildingRepositoryImpl implements BuildingRepository{
 	private void queryTableSpecial(BuildingSearchBuilder buildingSearchBuilder, StringBuilder where) {
 		// TODO Auto-generated method stub
-		Long rentareaFrom = buildingSearchBuilder.getRentAreaFrom();
-		Long rentareaTo = buildingSearchBuilder.getRentAreaTo();
-		if(rentareaFrom != null) {
-			where.append(" AND r.value " + " >= " + rentareaFrom);
+		Long rentAreaFrom = buildingSearchBuilder.getRentAreaFrom();
+		Long rentAreaTo = buildingSearchBuilder.getRentAreaTo();
+		if(rentAreaFrom != null) {
+			where.append(" AND r.value " + " >= " + rentAreaFrom);
 		}
-		if(rentareaTo != null) {
-			where.append(" AND r.value " + " <= " + rentareaTo);
+		if(rentAreaTo != null) {
+			where.append(" AND r.value " + " <= " + rentAreaTo);
 		}
-		Long rentpriceFrom = buildingSearchBuilder.getRentPriceFrom();
-		Long rentpriceTo = buildingSearchBuilder.getRentFriceTo();
-		if(rentpriceFrom != null) {
-			where.append(" AND b.rent_price " + " >= " + rentpriceFrom);
+		Long rentPriceFrom = buildingSearchBuilder.getRentPriceFrom();
+		Long rentPriceTo = buildingSearchBuilder.getRentFriceTo();
+		if(rentPriceFrom != null) {
+			where.append(" AND b.rent_price " + " >= " + rentPriceFrom);
 		}
-		if(rentpriceTo != null) {
-			where.append(" AND b.rent_price " + " <= " + rentpriceTo);
+		if(rentPriceTo != null) {
+			where.append(" AND b.rent_price " + " <= " + rentPriceTo);
 		}
 		// Java 7
 		List <String> typeCode = buildingSearchBuilder.getTypeCode();
@@ -62,7 +62,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 			for(Field item : fields) {
 				item.setAccessible(true);
 				String fieldName = item.getName();
-				if(!fieldName.startsWith("rentarea") && !fieldName.startsWith("rentprice") && !fieldName.equals("typeCode")) {
+				if(!fieldName.startsWith("rentArea") && !fieldName.startsWith("rentPrice") && !fieldName.equals("typeCode")) {
 					Object obj = item.get(buildingSearchBuilder);
 					if(obj != null) {
 						String value = obj.toString();
@@ -74,6 +74,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 								where.append(" AND " + fieldName + " like '%" + value + "%' ");
 							}
 						}
+						
 					}
 				}
 			}
@@ -85,10 +86,6 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 
 	private void joinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
 		// TODO Auto-generated method stub
-//		String district_id = buildingSearchBuilder.getDistrictId().toString();
-//		if(StringUtil.checkString(district_id)) {
-//			sql.append(" inner join district d on d.id = b.district_id ");
-//		}
 		Integer district_id = buildingSearchBuilder.getDistrictId();
 		if(district_id != null) {
 			sql.append(" inner join district d on d.id = b.district_id ");
