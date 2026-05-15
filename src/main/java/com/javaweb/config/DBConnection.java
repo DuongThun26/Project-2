@@ -3,14 +3,25 @@ package com.javaweb.config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
+@Component
+@PropertySource("classpath:application.properties")
 public class DBConnection {
 	private static Connection connection = null;
-
-    private static final String URL = "jdbc:mysql://localhost:3306/building_management";
-    private static final String USER = "root";
-    private static final String PASSWORD = "2662004";
-
-    public static Connection getConnection() {
+	@Value("${spring.datasource.url}")
+	private String URL; 
+	
+	@Value("${spring.datasource.username}")
+    private String USER;
+	
+	@Value("${spring.datasource.password}")
+    private String PASSWORD;
+	
+    
+    public Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
                 Class.forName("com.mysql.cj.jdbc.Driver");

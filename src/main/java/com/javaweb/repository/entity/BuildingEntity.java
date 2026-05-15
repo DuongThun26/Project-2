@@ -1,8 +1,92 @@
 package com.javaweb.repository.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "building")
 public class BuildingEntity {
-	private int id, district_id, number_of_basement, floor_area, rent_price;
-	private String name, street, ward, direction, level, service_fee, rent_time, manager_name, manager_phone;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name = "number_of_basement")
+	private int numberOfBasement;
+	
+	@Column(name = "floor_area")
+	private Long floorArea;
+	
+	@Column(name = "rent_price")
+	private Long rentPrice;
+	
+	@Column(name = "name")
+	private String name;
+	
+	@Column(name = "street")
+	private String street;
+	
+	@Column(name = "ward")
+	private String ward;
+	
+	@Column(name = "direction")
+	private String direction;
+	
+	@Column(name = "level")
+	private String level;
+	
+	@Column(name = "service_fee")
+	private String serviceFee;
+	
+	@Column(name = "rent_time")
+	private String rentTime;
+	
+	@Column(name = "manager_name")
+	private String managerName;
+	
+	@Column(name = "manager_phone")
+	private String managerPhone;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "district_id")
+	private DistrictEntity district;
+	
+	@OneToMany(mappedBy = "building", fetch = FetchType.LAZY)
+	private List<RentAreaEntity> rentAreas = new ArrayList<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "buildingrenttype", joinColumns = @JoinColumn(name = "building_id"), inverseJoinColumns = @JoinColumn(name = "renttype_id"))
+	private List<BuildingTypeEntity> rentTypes = new ArrayList<>();
+	
+	
+	public List<BuildingTypeEntity> getRentTypes() {
+		return rentTypes;
+	}
+
+	public void setRentTypes(List<BuildingTypeEntity> rentTypes) {
+		this.rentTypes = rentTypes;
+	}
+
+	public List<RentAreaEntity> getRentAreas() {
+		return rentAreas;
+	}
+
+	public void setRentAreas(List<RentAreaEntity> rentAreas) {
+		this.rentAreas = rentAreas;
+	}
 
 	public int getId() {
 		return id;
@@ -12,36 +96,29 @@ public class BuildingEntity {
 		this.id = id;
 	}
 
-	public int getDistrict_id() {
-		return district_id;
+
+	public int getNumberOfBasement() {
+		return numberOfBasement;
 	}
 
-	public void setDistrict_id(int district_id) {
-		this.district_id = district_id;
+	public void setNumberOfBasement(int numberOfBasement) {
+		this.numberOfBasement = numberOfBasement;
 	}
 
-	public int getNumber_of_basement() {
-		return number_of_basement;
+	public Long getFloorArea() {
+		return floorArea;
 	}
 
-	public void setNumber_of_basement(int number_of_basement) {
-		this.number_of_basement = number_of_basement;
+	public void setFloorArea(Long floorArea) {
+		this.floorArea = floorArea;
 	}
 
-	public int getFloor_area() {
-		return floor_area;
+	public Long getRentPrice() {
+		return rentPrice;
 	}
 
-	public void setFloor_area(int floor_area) {
-		this.floor_area = floor_area;
-	}
-
-	public int getRent_price() {
-		return rent_price;
-	}
-
-	public void setRent_price(int rent_price) {
-		this.rent_price = rent_price;
+	public void setRentPrice(Long rentPrice) {
+		this.rentPrice = rentPrice;
 	}
 
 	public String getName() {
@@ -84,36 +161,46 @@ public class BuildingEntity {
 		this.level = level;
 	}
 
-	public String getService_fee() {
-		return service_fee;
+	public String getServiceFee() {
+		return serviceFee;
 	}
 
-	public void setService_fee(String service_fee) {
-		this.service_fee = service_fee;
+	public void setServiceFee(String serviceFee) {
+		this.serviceFee = serviceFee;
 	}
 
-	public String getRent_time() {
-		return rent_time;
+	public String getRentTime() {
+		return rentTime;
 	}
 
-	public void setRent_time(String rent_time) {
-		this.rent_time = rent_time;
+	public void setRentTime(String rentTime) {
+		this.rentTime = rentTime;
 	}
 
-	public String getManager_name() {
-		return manager_name;
+	public String getManagerName() {
+		return managerName;
 	}
 
-	public void setManager_name(String namager_name) {
-		this.manager_name = namager_name;
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
 	}
 
-	public String getManager_phone() {
-		return manager_phone;
+	public String getManagerPhone() {
+		return managerPhone;
 	}
 
-	public void setManager_phone(String manager_phone) {
-		this.manager_phone = manager_phone;
+	public void setManagerPhone(String managerPhone) {
+		this.managerPhone = managerPhone;
 	}
+
+	public DistrictEntity getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(DistrictEntity district) {
+		this.district = district;
+	}
+
+	
 
 }
