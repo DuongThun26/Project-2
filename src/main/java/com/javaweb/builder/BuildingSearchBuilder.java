@@ -3,8 +3,6 @@ package com.javaweb.builder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 public class BuildingSearchBuilder {
 	private String name;
 	private Long floorArea;

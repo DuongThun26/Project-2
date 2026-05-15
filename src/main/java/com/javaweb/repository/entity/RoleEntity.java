@@ -13,46 +13,40 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "buildingtype")
-public class BuildingTypeEntity {
+@Table(name = "role")
+public class RoleEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
-	@Column(name = "code")
-	private String code;
+	private Integer id;
 	
 	@Column(name = "name")
 	private String name;
 	
-	@ManyToMany(mappedBy = "rentTypes")
-	private List<BuildingEntity> buildings = new ArrayList<>();
-	
-	public List<BuildingEntity> getBuildings() {
-		return buildings;
-	}
-	public void setBuildings(List<BuildingEntity> buildings) {
-		this.buildings = buildings;
-	}
-	public int getId() {
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+	private List<UserEntity> users = new ArrayList<>();
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 
+	public List<UserEntity> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<UserEntity> users) {
+		this.users = users;
+	}
 	
 }
