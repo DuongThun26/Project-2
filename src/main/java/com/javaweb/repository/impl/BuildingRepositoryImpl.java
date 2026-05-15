@@ -28,9 +28,10 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		// TODO Auto-generated method stub
 		StringBuilder sql = new StringBuilder("SELECT * FROM building b ");
 		joinTable(buildingSearchBuilder, sql);
-		StringBuilder where = new StringBuilder();
+		StringBuilder where = new StringBuilder(" WHERE 1 = 1 ");
 		queryNomal(buildingSearchBuilder, where);
 		querySpecial(buildingSearchBuilder, where);
+		sql.append(where);
 		Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
 		return query.getResultList();
 	}
@@ -53,7 +54,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		if(rentPriceTo != null) {
 			where.append(" AND b.rent_price " + " <= " + rentPriceTo);
 		}
-		// Java 7
+		// Java 8
 		List <String> typeCode = buildingSearchBuilder.getTypeCode();
 		if(typeCode != null && typeCode.size() != 0) {
 			StringBuilder type = new StringBuilder();
@@ -63,9 +64,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 				}
 				type.append("'").append(i).append("'");
 			});
-			if(typeCode != null && typeCode.size() != 0) {
-				where.append(" AND bt.code IN (" + type + ") ");
-			}
+			where.append(" AND bt.code IN (" + type + ") ");
 		}
 	}
 
@@ -103,17 +102,17 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		// TODO Auto-generated method stub
 		Integer districtId = buildingSearchBuilder.getDistrictId();
 		if(districtId != null) {
-			sql.append("INNER JOIN district d on d.id = b.district_id");
+			sql.append(" INNER JOIN district d on d.id = b.district_id ");
 		}
 		Long rentAreaFrom = buildingSearchBuilder.getRentAreaFrom();
 		Long renttAreaTo = buildingSearchBuilder.getRentAreaTo();
 		if(rentAreaFrom != null || renttAreaTo != null) {
-			sql.append("INNER JOIN rentarea r on r.building_id = b.id");
+			sql.append(" INNER JOIN rentarea r on r.building_id = b.id ");
 		}
 		List<String> typeCode = buildingSearchBuilder.getTypeCode();
 		if(typeCode != null && typeCode.size() > 0) {
-			sql.append("INNER JOIN buildingrenttype brt on brt.building_id = b.id");
-			sql.append("INNER JOIN buildingtype bt on bt.id = brt.renttype_id");
+			sql.append(" INNER JOIN buildingrenttype brt on brt.building_id = b.id ");
+			sql.append(" INNER JOIN buildingtype bt on bt.id = brt.renttype_id ");
 		}
 	}
 	
